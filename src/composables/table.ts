@@ -1,8 +1,8 @@
 import { ref, computed, onMounted } from 'vue'
 
-import { Ids, Invoice, Invoices } from '../interfaces'
+import { Ids, Invoice, Invoices } from '@/interfaces'
 
-import { useStore } from '../store/index'
+import { useStore } from '@/store/index'
 
 export default () => {
 

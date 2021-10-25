@@ -10,7 +10,7 @@ import {
 
 import firebaseConfig from './config.json'
 
-import { Invoice } from '../../interfaces/table'
+import { Invoice } from '@/interfaces'
 
 import { ElNotification } from 'element-plus'
 

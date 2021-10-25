@@ -1,5 +1,5 @@
 import { onMounted, onUnmounted, ref } from 'vue'
-import { WindowSize } from '../interfaces'
+import { WindowSize } from '@/interfaces'
 
 export default (): WindowSize => {
 

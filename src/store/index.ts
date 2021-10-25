@@ -5,9 +5,9 @@ import {
   getInvoices as getList,
   createInvoice as create,
   deleteInvoice as remove
-} from '../api/firebase/index'
+} from '@/api/firebase/index'
 
-import { Invoice, Invoices } from '../interfaces'
+import { Invoice, Invoices } from '@/interfaces'
 
 export interface State {
   invoices: Invoices
