@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app'
 import {
   getFirestore,
   collection,
-  getDoc,
   getDocs,
   addDoc,
   deleteDoc,
@@ -11,21 +10,43 @@ import {
 
 import firebaseConfig from './config.json'
 
-import { Invoice, Invoices } from '../../interfaces/table'
+import { Invoice } from '../../interfaces/table'
+
+import { ElNotification } from 'element-plus'
 
 export const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
 export const invoicesCollection = collection(db, 'invoices')
 
 export async function getInvoices(): Promise<any> {
-  const invoiceSnapshot = await getDocs(invoicesCollection)
-  return invoiceSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+  try {
+    const invoiceSnapshot = await getDocs(invoicesCollection)
+    return invoiceSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+  } catch (e) {
+    showErrorMessage('Unfortunately, you cannot receive invoices')
+  }
 }
 
 export async function createInvoice(invoice: Invoice): Promise<void> {
-  await addDoc(invoicesCollection, invoice)
+  try {
+    await addDoc(invoicesCollection, invoice)
+  } catch (e) {
+    showErrorMessage('Unfortunately, you cannot create invoice')
+  }
 }
 
 export async function deleteInvoice(ids: string[]): Promise<void> {
-  for (const id of ids) await deleteDoc(doc(db, "invoices", id))
+  try {
+    for (const id of ids) await deleteDoc(doc(db, "invoices", id))
+  } catch (e) {
+    showErrorMessage('Unfortunately, you cannot delete invoice')
+  }
+}
+
+function showErrorMessage(message: string): void {
+  ElNotification({
+    title: 'Error',
+    message,
+    type: 'error',
+  })
 }
